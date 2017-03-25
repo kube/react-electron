@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import App from './App'
-import { WindowsContainer } from '../services/Windows'
+import { WindowsContainer } from './services/Windows'
 
 const render =
   (component: ReactElement<any>, container: WindowsContainer) => {

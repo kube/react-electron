@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron'
-import { Props as WindowComponentProps } from '../lib/BrowserWindow'
+import { Props as WindowComponentProps } from '../BrowserWindow'
 
 type AppWindow = {
   key: string | number
