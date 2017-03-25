@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": false,
+    "jsx": "react",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "outDir": "dist"
+  }
+}
