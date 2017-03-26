@@ -1,5 +1,5 @@
 {
-  "name": "react-electron",
+  "name": "react-electronic",
   "version": "0.0.1",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
