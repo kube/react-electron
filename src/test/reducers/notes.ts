@@ -22,6 +22,11 @@ const notesReducer =
       .is('UPDATE_TITLE', () =>
         set(notes, _ => _[action.payload.id].title)(action.payload.value)
       )
+      .is('CLOSE_NOTE', () =>
+        set(notes, _ => _)(notes =>
+          notes.filter(note => note.id !== action.payload)
+        )
+      )
       .is('ADD_NOTE', () =>
         setAppend(notes, _ => _)(action.payload)
       )

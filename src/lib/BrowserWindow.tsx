@@ -5,8 +5,12 @@ export type Props = {
   vibrancy?: 'dark' | 'light'
   height?: number
   width?: number
+  fullscreen?: boolean
+  titleBarStyle?: 'default' | 'hidden' | 'hidden-inset'
   resizable?: boolean
-  onClose: () => void
+  onClose?: () => void
+  autoHideMenuBar?: boolean
+  focus?: true
   url: string
 }
 

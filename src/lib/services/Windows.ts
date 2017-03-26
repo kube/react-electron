@@ -18,22 +18,14 @@ export const createWindowsContainer = (): WindowsContainer => {
   const createAppWindow =
     (key: string | number, windowProps: WindowComponentProps): AppWindow => {
 
-      // Create an Electron BrowserWindow
-      const browserWindow = new BrowserWindow({
-        width: 610,
-        height: 610
-      })
-
-      console.log(windowProps)
+      const browserWindow = new BrowserWindow(windowProps)
       browserWindow.loadURL(windowProps.url)
 
-      // Create a new appWindow for internal service store
-      const appWindow: AppWindow = {
-        key: key,
-        browserWindow: browserWindow,
+      return {
+        key,
+        browserWindow,
         visited: false
       }
-      return appWindow
     }
 
   const getOrCreateAppWindowByProps =
@@ -41,18 +33,63 @@ export const createWindowsContainer = (): WindowsContainer => {
 
       let appWindow = appWindows.find(window => window.key === key)
 
-      if (appWindow) {
-        console.log('GOT appWindow')
+      if (appWindow)
         return appWindow
-      }
       else {
-        console.log('CREATED appWindow')
         appWindow = createAppWindow(key, props)
         appWindows.push(appWindow)
         return appWindow
       }
     }
 
+  const syncWindowProperties =
+    (window: Electron.BrowserWindow, props: WindowComponentProps) => {
+      const [width, height] = window.getSize()
+
+      Object.keys(props)
+        .forEach(propName => {
+          switch (propName) {
+
+            case 'fullscreen':
+              if (window.isFullScreen() !== props.fullscreen)
+                window.setFullScreen(props.fullscreen)
+              break
+
+            case 'width':
+              if (width !== props.height)
+                window.setSize(props.height, height)
+              break
+
+            case 'height':
+              if (height !== props.height)
+                window.setSize(width, props.height)
+              break
+
+            case 'vibrancy':
+              window.setVibrancy(props.vibrancy)
+              break
+
+            case 'resizable':
+              if (window.isResizable() !== props.resizable)
+                window.setResizable(props.resizable)
+              break
+
+            case 'titleBarStyle':
+              break
+
+            case 'autoHideMenuBar':
+              window.setAutoHideMenuBar(props.autoHideMenuBar)
+              break
+
+            case 'focus':
+              if (props.focus === true)
+                window.focus()
+              break
+
+            default:
+          }
+        })
+    }
 
   return {
 
@@ -61,19 +98,13 @@ export const createWindowsContainer = (): WindowsContainer => {
      * to clean unmarked windows
      */
     finishRender() {
-      console.log('FINISH RENDER')
       appWindows.forEach(appWindow => {
         const currentKey = appWindow.key
 
-        // If appWindow was not marked
         if (appWindow.visited === false) {
-
-          // Remove it from store
           appWindows = appWindows.filter(appWindow =>
             appWindow.key !== currentKey
           )
-
-          // Close corresponding BrowserWindow
           appWindow.browserWindow.close()
         }
         appWindow.visited = false
@@ -87,16 +118,22 @@ export const createWindowsContainer = (): WindowsContainer => {
       const appWindow =
         getOrCreateAppWindowByProps(appWindows, key, windowProps)
 
-      // Mark as visited
       appWindow.visited = true
 
-      // const browserWindow = appWindow.browserWindow
-      appWindow.browserWindow.on('close', () => {
+      const browserWindow = appWindow.browserWindow
+
+      browserWindow.on('close', () => {
+        console.log('CLOSED')
         if (windowProps.onClose)
           windowProps.onClose()
+        return false
       })
 
-      // Modify browserWindow to match the WindowState
+      browserWindow.webContents.executeJavaScript(`
+        window.onbeforeunload = () => false
+      `)
+
+      syncWindowProperties(browserWindow, windowProps)
     }
   }
 }

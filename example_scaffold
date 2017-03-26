@@ -1,0 +1,26 @@
+
+/src
+    /shared
+        /actions
+        /reducers
+    /renderer
+        /note
+            /actions
+            /components
+            /containers
+            /reducers
+            /store
+        /preferences
+            /actions
+            /components
+            /containers
+            /reducers
+            /store
+    /main
+        /actions
+        /components
+        /containers
+        /reducers
+
+
+import NoteReducer 'windows/note/reducers/note'

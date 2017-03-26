@@ -2,7 +2,7 @@ import * as React from 'react'
 import { app } from 'electron'
 import { render, App, BrowserWindow, createWindowsContainer } from '../lib'
 import store, { State } from './store'
-import { closeNote } from './actions/notes'
+// import { closeNote } from './actions/notes'
 import { setMenu } from './menu'
 
 const container = createWindowsContainer()
@@ -15,9 +15,14 @@ const renderApp = (state: State) => {
           <BrowserWindow
             key={note.id}
             vibrancy='dark'
-            height={1024}
-            width={768}
-            onClose={() => store.dispatch(closeNote(note.id))}
+            height={640}
+            width={480}
+            autoHideMenuBar={true}
+            titleBarStyle='hidden-inset'
+            onClose={() => {
+              console.log(`Closed Window ${note.id}`)
+              // store.dispatch(closeNote(note.id))
+            }}
             url={
               note.id === 0
                 ? 'https://github.com'
@@ -31,7 +36,6 @@ const renderApp = (state: State) => {
     container
   )
 }
-
 
 app.on('ready', () => {
   setMenu()
