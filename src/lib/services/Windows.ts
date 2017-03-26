@@ -34,10 +34,8 @@ export const createWindowsContainer = (): WindowsContainer => {
       })
 
       browserWindow.on('close', () => {
-        if (appWindow.lastProps.onClose) {
-          console.log('Closing Window')
+        if (appWindow.lastProps.onClose)
           appWindow.lastProps.onClose()
-        }
         return false
       })
 
@@ -61,6 +59,7 @@ export const createWindowsContainer = (): WindowsContainer => {
   const syncWindowProperties =
     (window: Electron.BrowserWindow, props: WindowComponentProps) => {
       const [width, height] = window.getSize()
+      const [minWidth, minHeight] = window.getMinimumSize()
 
       Object.keys(props)
         .forEach(propName => {
@@ -79,6 +78,16 @@ export const createWindowsContainer = (): WindowsContainer => {
             case 'height':
               if (height !== props.height)
                 window.setSize(width, props.height)
+              break
+
+            case 'minWidth':
+              if (minWidth !== props.minWidth)
+                window.setMinimumSize(width, props.minWidth)
+              break
+
+            case 'minHeight':
+              if (minHeight !== props.minHeight)
+                window.setMinimumSize(width, props.minHeight)
               break
 
             case 'vibrancy':

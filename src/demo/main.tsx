@@ -38,7 +38,6 @@ app.on('ready', () => {
 
   store.subscribe(() => {
     const state = store.getState()
-    console.log(state)
     renderApp(state)
   })
 
