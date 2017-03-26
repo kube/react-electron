@@ -105,7 +105,15 @@ export const createWindowsContainer = (): WindowsContainer => {
           appWindows = appWindows.filter(appWindow =>
             appWindow.key !== currentKey
           )
-          appWindow.browserWindow.close()
+
+          const { browserWindow } = appWindow
+
+          // Enable Window Closing
+          browserWindow.webContents.executeJavaScript(
+            `window.onbeforeunload = () => {}`,
+            false,
+            () => browserWindow.close()
+          )
         }
         appWindow.visited = false
       })
@@ -129,9 +137,8 @@ export const createWindowsContainer = (): WindowsContainer => {
         return false
       })
 
-      browserWindow.webContents.executeJavaScript(`
-        window.onbeforeunload = () => false
-      `)
+      browserWindow.webContents
+        .executeJavaScript(`window.onbeforeunload = () => false`)
 
       syncWindowProperties(browserWindow, windowProps)
     }

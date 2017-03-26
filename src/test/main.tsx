@@ -2,7 +2,7 @@ import * as React from 'react'
 import { app } from 'electron'
 import { render, App, BrowserWindow, createWindowsContainer } from '../lib'
 import store, { State } from './store'
-// import { closeNote } from './actions/notes'
+import { closeNote } from './actions/notes'
 import { setMenu } from './menu'
 
 const container = createWindowsContainer()
@@ -21,7 +21,7 @@ const renderApp = (state: State) => {
             titleBarStyle='hidden-inset'
             onClose={() => {
               console.log(`Closed Window ${note.id}`)
-              // store.dispatch(closeNote(note.id))
+              store.dispatch(closeNote(note.id))
             }}
             url={
               note.id === 0
