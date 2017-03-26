@@ -19,16 +19,12 @@ const renderApp = (state: State) => {
             width={480}
             autoHideMenuBar={true}
             titleBarStyle='hidden-inset'
-            onClose={() => {
-              console.log(`Closed Window ${note.id}`)
-              store.dispatch(closeNote(note.id))
-            }}
+            onClose={() => store.dispatch(closeNote(note.id))}
             url={
               note.id === 0
                 ? 'https://github.com'
                 : 'http://stackoverflow.com'
             }
-            resizable={false}
           />
         )
       }

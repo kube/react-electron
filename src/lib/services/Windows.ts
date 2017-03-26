@@ -4,6 +4,7 @@ import { Props as WindowComponentProps } from '../BrowserWindow'
 type AppWindow = {
   key: string | number
   browserWindow: Electron.BrowserWindow
+  lastProps: WindowComponentProps
   visited: boolean
 }
 
@@ -21,11 +22,26 @@ export const createWindowsContainer = (): WindowsContainer => {
       const browserWindow = new BrowserWindow(windowProps)
       browserWindow.loadURL(windowProps.url)
 
-      return {
+      const appWindow = {
         key,
         browserWindow,
+        lastProps: windowProps,
         visited: false
       }
+
+      browserWindow.on('resize', () => {
+        syncWindowProperties(browserWindow, appWindow.lastProps)
+      })
+
+      browserWindow.on('close', () => {
+        if (appWindow.lastProps.onClose) {
+          console.log('Closing Window')
+          appWindow.lastProps.onClose()
+        }
+        return false
+      })
+
+      return appWindow
     }
 
   const getOrCreateAppWindowByProps =
@@ -91,56 +107,53 @@ export const createWindowsContainer = (): WindowsContainer => {
         })
     }
 
+  /**
+   * Called each time render is finished
+   * to clean unmarked windows
+   */
+  const finishRender = () => {
+    appWindows.forEach(appWindow => {
+      const currentKey = appWindow.key
+
+      if (appWindow.visited === false) {
+        appWindows = appWindows.filter(appWindow =>
+          appWindow.key !== currentKey
+        )
+
+        // Reactivate Window Closing
+        appWindow.browserWindow.webContents.executeJavaScript(
+          `window.onbeforeunload = () => {}`,
+          null,
+          () => appWindow.lastProps.onClose()
+        )
+      }
+      appWindow.visited = false
+    })
+  }
+
+  /**
+   * Render all windows on screen
+   */
+  const render = (key: string | number, windowProps: WindowComponentProps) => {
+    const appWindow =
+      getOrCreateAppWindowByProps(appWindows, key, windowProps)
+
+    appWindow.visited = true
+
+    // Should do a comparison here first, to know if should re-render
+    appWindow.lastProps = windowProps
+
+    const { browserWindow } = appWindow
+
+    // Disable Window Closing to enable Hook
+    browserWindow.webContents
+      .executeJavaScript(`window.onbeforeunload = () => false`)
+
+    syncWindowProperties(browserWindow, windowProps)
+  }
+
   return {
-
-    /**
-     * Called each time render is finished
-     * to clean unmarked windows
-     */
-    finishRender() {
-      appWindows.forEach(appWindow => {
-        const currentKey = appWindow.key
-
-        if (appWindow.visited === false) {
-          appWindows = appWindows.filter(appWindow =>
-            appWindow.key !== currentKey
-          )
-
-          const { browserWindow } = appWindow
-
-          // Enable Window Closing
-          browserWindow.webContents.executeJavaScript(
-            `window.onbeforeunload = () => {}`,
-            false,
-            () => browserWindow.close()
-          )
-        }
-        appWindow.visited = false
-      })
-    },
-
-    /**
-     * Render all windows on screen
-     */
-    render(key: string | number, windowProps: WindowComponentProps) {
-      const appWindow =
-        getOrCreateAppWindowByProps(appWindows, key, windowProps)
-
-      appWindow.visited = true
-
-      const browserWindow = appWindow.browserWindow
-
-      browserWindow.on('close', () => {
-        console.log('CLOSED')
-        if (windowProps.onClose)
-          windowProps.onClose()
-        return false
-      })
-
-      browserWindow.webContents
-        .executeJavaScript(`window.onbeforeunload = () => false`)
-
-      syncWindowProperties(browserWindow, windowProps)
-    }
+    render,
+    finishRender
   }
 }
