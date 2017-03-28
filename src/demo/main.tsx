@@ -19,6 +19,10 @@ const renderApp = (state: State) => {
             width={480}
             autoHideMenuBar={true}
             titleBarStyle='hidden-inset'
+            onWindowCreation={window => {
+              console.log(window)
+              console.log(`Created window for ${note.id}`)
+            }}
             onClose={() => store.dispatch(closeNote(note.id))}
             url={
               note.id === 0

@@ -22,6 +22,9 @@ export const createWindowsContainer = (): WindowsContainer => {
       const browserWindow = new BrowserWindow(windowProps)
       browserWindow.loadURL(windowProps.url)
 
+      if (windowProps.onWindowCreation)
+        windowProps.onWindowCreation(browserWindow)
+
       const appWindow = {
         key,
         browserWindow,
