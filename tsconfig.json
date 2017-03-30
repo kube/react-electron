@@ -5,7 +5,7 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "jsx": "react",
     "rootDir": "src",
     "baseUrl": "src",
