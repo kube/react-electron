@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { app } from 'electron'
-import { render, App, BrowserWindow, createWindowsContainer } from '../lib'
+import { render, App, BrowserWindow, createWindowsContainer } from '../../lib'
 import store, { State } from './store'
 import { closeNote } from './actions/notes'
 import { setMenu } from './menu'

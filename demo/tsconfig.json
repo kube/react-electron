@@ -9,12 +9,6 @@
     "jsx": "react",
     "rootDir": "src",
     "baseUrl": "src",
-    "outDir": "lib",
-    "declaration": true
-  },
-  "exclude": [
-    "node_modules/",
-    "lib/",
-    "demo/"
-  ]
+    "outDir": "dist"
+  }
 }

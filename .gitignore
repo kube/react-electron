@@ -1,4 +1,6 @@
 dist
+lib
+demo/dist
 node_modules
 **/*.js.map
 yarn.lock

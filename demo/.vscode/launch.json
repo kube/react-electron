@@ -10,9 +10,9 @@
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
       },
-      "program": "${workspaceRoot}/src/demo/main.tsx",
+      "program": "${workspaceRoot}/src/main.tsx",
       "outFiles": [
-        "${workspaceRoot}/dist/demo/main.js"
+        "${workspaceRoot}/dist/main.js"
       ],
       "sourceMaps": true
     }

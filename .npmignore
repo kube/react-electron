@@ -1,5 +1,7 @@
 /.vscode
 /src
+/demo
+**/*.js.map
 /.editorconfig
 /example_scaffold
 /tsconfig.json

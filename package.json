@@ -1,21 +1,12 @@
 {
   "name": "react-electronic",
   "version": "0.0.3",
-  "main": "dist/lib/index.js",
-  "types": "dist/lib/index.d.ts",
-  "scripts": {
-    "demo": "electron dist/demo/main"
-  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@types/electron": "^1.4.35",
-    "@types/react": "^15.0.18",
-    "electron": "^1.6.2",
-    "monolite": "^0.3.1",
-    "react": "^15.4.2",
-    "redux": "^3.6.0",
-    "returnof": "^1.1.0",
-    "typescript": "^2.3.0-dev.20170330"
+    "@types/react": "^15.0.18"
   }
 }
