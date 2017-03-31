@@ -15,8 +15,8 @@ const renderApp = (state: State) => {
           <BrowserWindow
             key={note.id}
             vibrancy='dark'
-            height={640}
-            width={480}
+            width={640}
+            height={480}
             autoHideMenuBar={true}
             titleBarStyle='hidden-inset'
             onWindowCreation={window => {

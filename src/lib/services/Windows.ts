@@ -33,7 +33,7 @@ export const createWindowsContainer = (): WindowsContainer => {
       }
 
       browserWindow.on('resize', () => {
-        syncWindowProperties(browserWindow, appWindow.lastProps)
+        syncWindowProperties(appWindow, appWindow.lastProps)
       })
 
       browserWindow.on('close', () => {
@@ -60,9 +60,10 @@ export const createWindowsContainer = (): WindowsContainer => {
     }
 
   const syncWindowProperties =
-    (window: Electron.BrowserWindow, props: WindowComponentProps) => {
-      const [width, height] = window.getSize()
-      const [minWidth, minHeight] = window.getMinimumSize()
+    (appWindow: AppWindow, props: WindowComponentProps) => {
+      const window = appWindow.browserWindow
+      const lastProps = appWindow.lastProps
+      const [width, height] = appWindow.browserWindow.getSize()
 
       Object.keys(props)
         .forEach(propName => {
@@ -84,13 +85,13 @@ export const createWindowsContainer = (): WindowsContainer => {
               break
 
             case 'minWidth':
-              if (minWidth !== props.minWidth)
-                window.setMinimumSize(width, props.minWidth)
+              if (lastProps.minWidth !== props.minWidth)
+                window.setMinimumSize(props.minWidth, lastProps.minHeight)
               break
 
             case 'minHeight':
-              if (minHeight !== props.minHeight)
-                window.setMinimumSize(width, props.minHeight)
+              if (lastProps.minHeight !== props.minHeight)
+                window.setMinimumSize(lastProps.minWidth, props.minHeight)
               break
 
             case 'vibrancy':
@@ -152,16 +153,14 @@ export const createWindowsContainer = (): WindowsContainer => {
 
     appWindow.visited = true
 
-    // Should do a comparison here first, to know if should re-render
-    appWindow.lastProps = windowProps
-
-    const { browserWindow } = appWindow
-
     // Disable Window Closing to enable Hook
-    browserWindow.webContents
+    appWindow.browserWindow.webContents
       .executeJavaScript(`window.onbeforeunload = () => false`)
 
-    syncWindowProperties(browserWindow, windowProps)
+    syncWindowProperties(appWindow, windowProps)
+
+    // Should do a comparison here first, to know if should re-render
+    appWindow.lastProps = windowProps
   }
 
   return {

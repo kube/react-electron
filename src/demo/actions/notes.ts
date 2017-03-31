@@ -1,16 +1,7 @@
+import returnof from 'returnof'
 import { Note } from '../reducers/notes'
 
-export type NoteActionType =
-  | 'ADD_NOTE'
-  | 'UPDATE_TITLE'
-  | 'CLOSE_NOTE'
-
-export type NoteAction = {
-  type: NoteActionType
-  payload: any
-}
-
-export const updateNoteTitle = (id: number, value: string): NoteAction => ({
+export const updateNoteTitle = (id: number, value: string) => ({
   type: 'UPDATE_TITLE',
   payload: {
     id,
@@ -18,12 +9,22 @@ export const updateNoteTitle = (id: number, value: string): NoteAction => ({
   }
 })
 
-export const addNote = (note: Note): NoteAction => ({
+export const addNote = (note: Note) => ({
   type: 'ADD_NOTE',
   payload: note
 })
 
-export const closeNote = (id: number): NoteAction => ({
+export const closeNote = (id: number) => ({
   type: 'CLOSE_NOTE',
   payload: id
 })
+
+
+const updateNoteTitleReturn = returnof(updateNoteTitle)
+const addNoteReturn = returnof(addNote)
+const closeNoteReturn = returnof(closeNote)
+
+export type NoteAction =
+  & typeof updateNoteTitleReturn
+  & typeof addNoteReturn
+  & typeof closeNoteReturn

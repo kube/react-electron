@@ -15,6 +15,7 @@
     "monolite": "^0.3.1",
     "react": "^15.4.2",
     "redux": "^3.6.0",
-    "returnof": "^1.0.0"
+    "returnof": "^1.1.0",
+    "typescript": "^2.3.0-dev.20170330"
   }
 }

@@ -9,7 +9,6 @@
     "jsx": "react",
     "rootDir": "src",
     "baseUrl": "src",
-    "outDir": "dist",
-    "declaration": true
+    "outDir": "dist"
   }
 }
