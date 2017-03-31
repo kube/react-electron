@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export type Props = {
   key: string | number
-  vibrancy?: 'dark' | 'light'
+  vibrancy?: Electron.VibrancyType
   height?: number
   width?: number
   minHeight?: number

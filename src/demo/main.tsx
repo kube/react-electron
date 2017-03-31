@@ -14,7 +14,7 @@ const renderApp = (state: State) => {
         state.notes.map(note =>
           <BrowserWindow
             key={note.id}
-            vibrancy='dark'
+            vibrancy='ultra-dark'
             width={640}
             height={480}
             autoHideMenuBar={true}
