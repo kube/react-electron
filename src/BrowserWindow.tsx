@@ -12,7 +12,7 @@ export type Props = {
   onWindowCreation?: (window: Electron.BrowserWindow) => void
   titleBarStyle?: 'default' | 'hidden' | 'hidden-inset'
   resizable?: boolean
-  onClose?: () => void
+  onClose?: (window: Electron.BrowserWindow) => void
   autoHideMenuBar?: boolean
   focus?: true
   url: string
