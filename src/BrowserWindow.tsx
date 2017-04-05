@@ -9,6 +9,7 @@ export type Props = {
   minWidth?: number
   fullscreen?: boolean
   backgroundColor?: string
+  isDocumentEdited?: boolean
   onWindowCreation?: (window: Electron.BrowserWindow) => void
   titleBarStyle?: 'default' | 'hidden' | 'hidden-inset'
   resizable?: boolean

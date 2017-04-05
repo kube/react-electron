@@ -13,8 +13,8 @@
     "declaration": true
   },
   "exclude": [
-    "node_modules/",
-    "lib/",
-    "demo/"
+    "node_modules",
+    "lib",
+    "demo"
   ]
 }

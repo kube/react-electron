@@ -103,6 +103,11 @@ export const createWindowsContainer = (): WindowsContainer => {
                 window.setResizable(props.resizable)
               break
 
+            case 'isDocumentEdited':
+              if (window.isDocumentEdited() !== props.isDocumentEdited)
+                window.setDocumentEdited(props.isDocumentEdited)
+              break
+
             case 'titleBarStyle':
               break
 
