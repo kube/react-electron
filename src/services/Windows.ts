@@ -137,7 +137,7 @@ export const createWindowsContainer = (): WindowsContainer => {
         appWindow.browserWindow.webContents.executeJavaScript(
           `window.onbeforeunload = () => {}`,
           null,
-          () => appWindow.lastProps.onClose(appWindow.browserWindow)
+          () => appWindow.browserWindow.close()
         )
       }
       appWindow.visited = false
