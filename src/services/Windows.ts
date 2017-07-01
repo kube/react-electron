@@ -138,12 +138,8 @@ export const createWindowsContainer = (): WindowsContainer => {
           appWindow.key !== currentKey
         )
 
-        // Reactivate Window Closing
-        appWindow.browserWindow.webContents.executeJavaScript(
-          `window.onbeforeunload = () => {}`,
-          null,
-          () => appWindow.browserWindow.close()
-        )
+        // Destroy BrowserWindow
+        appWindow.browserWindow.destroy()
       }
       appWindow.visited = false
     })
@@ -159,8 +155,9 @@ export const createWindowsContainer = (): WindowsContainer => {
     appWindow.visited = true
 
     // Disable Window Closing to enable Hook
-    appWindow.browserWindow.webContents
-      .executeJavaScript(`window.onbeforeunload = () => false`)
+    appWindow.browserWindow.on('close', event =>
+      event.preventDefault()
+    )
 
     syncWindowProperties(appWindow, windowProps)
 
