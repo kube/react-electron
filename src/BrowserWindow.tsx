@@ -2,7 +2,17 @@ import * as React from 'react'
 
 export type Props = {
   key: string | number
-  vibrancy?: Electron.VibrancyType
+  vibrancy?:
+  | 'appearance-based'
+  | 'light'
+  | 'dark'
+  | 'titlebar'
+  | 'selection'
+  | 'menu'
+  | 'popover'
+  | 'sidebar'
+  | 'medium-light'
+  | 'ultra-dark'
   height?: number
   width?: number
   minHeight?: number
