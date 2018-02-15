@@ -1,6 +1,8 @@
 React Electron
 ==============
 
+Work In Progress - This is currently a quick-and-dirty prototype.
+
 ```jsx
 const container = createWindowsContainer()
 
