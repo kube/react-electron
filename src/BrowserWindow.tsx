@@ -13,6 +13,7 @@ export type Props = {
   | 'sidebar'
   | 'medium-light'
   | 'ultra-dark'
+  frame?: boolean
   height?: number
   width?: number
   minHeight?: number
