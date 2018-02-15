@@ -1,9 +1,22 @@
 React Electron
 ==============
 
-Work In Progress - This is currently a quick-and-dirty prototype.
+Declarative way to manage windows in an Electron application with React.
 
+> Work In Progress - This is currently a quick-and-dirty prototype.
+
+Install
+-------
+```sh
+yarn add react-electronic
+```
+
+Usage
+-----
 ```jsx
+import React from 'react'
+import { App, BrowserWindow, createWindowContainer } from 'react-electronic'
+
 const container = createWindowsContainer()
 
 render(
