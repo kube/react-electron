@@ -3,16 +3,16 @@ import * as React from 'react'
 export type Props = {
   key: string | number
   vibrancy?:
-  | 'appearance-based'
-  | 'light'
-  | 'dark'
-  | 'titlebar'
-  | 'selection'
-  | 'menu'
-  | 'popover'
-  | 'sidebar'
-  | 'medium-light'
-  | 'ultra-dark'
+    | 'appearance-based'
+    | 'light'
+    | 'dark'
+    | 'titlebar'
+    | 'selection'
+    | 'menu'
+    | 'popover'
+    | 'sidebar'
+    | 'medium-light'
+    | 'ultra-dark'
   frame?: boolean
   height?: number
   width?: number
@@ -22,7 +22,11 @@ export type Props = {
   backgroundColor?: string
   isDocumentEdited?: boolean
   onWindowCreation?: (window: Electron.BrowserWindow) => void
-  titleBarStyle?: 'default' | 'hidden' | 'hidden-inset'
+  titleBarStyle?:
+    | 'default'
+    | 'hidden'
+    | 'hiddenInset'
+    | 'customButtonsOnHover'
   resizable?: boolean
   onClose?: (window: Electron.BrowserWindow) => void
   autoHideMenuBar?: boolean
@@ -30,10 +34,6 @@ export type Props = {
   url: string
 }
 
-class BrowserWindow extends React.Component<Props, any> {
-  constructor() {
-    super()
-  }
-}
+class BrowserWindow extends React.Component<Props, any> {}
 
 export default BrowserWindow
