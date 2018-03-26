@@ -30,6 +30,7 @@ export type Props = {
   resizable?: boolean
   onClose?: (window: Electron.BrowserWindow) => void
   autoHideMenuBar?: boolean
+  webPreferences: Electron.WebPreferences
   focus?: true
   url: string
 }
